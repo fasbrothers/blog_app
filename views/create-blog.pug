@@ -1,0 +1,23 @@
+extends layout.pug 
+
+block content
+    .container 
+        h1 Create Your Blog 
+
+        if error 
+            p.error Some error there 
+
+        if success 
+            p.success Successfully saved
+
+        form.form(action="/create" method='POST') 
+            label Title 
+            input(type="text" name="title")
+
+            label Author 
+            input.input(type="text", name="author")
+
+            label Description 
+            textarea.input(type="text", name="description")
+
+            button.btn Create Blog

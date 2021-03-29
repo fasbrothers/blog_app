@@ -1,0 +1,9 @@
+extends layout.pug 
+
+block content 
+    .container 
+    h1 All Your Blogs 
+
+    each blog in blogs
+        div.blog-wrapper
+            a.blog(href=`/blogs/${blog.id}`) #{blog.title}
