@@ -1,73 +1,94 @@
-const { throws } = require('assert');
+// third party libraries
 const express = require('express');
 const app = express();
+const multer = require('multer')
 
+// local library
+const blogs = require('./routes/blogs')
+const api_listOfBlogs = require('./routes/api')
+
+// core libraries
 const fs =require('fs')
+const path = require('path')
 
-app.set('view engine', 'pug')
-app.use(express.urlencoded({extended:false}))
-
-app.get('/', (req, res) => {
-    res.render('homepage')
-})
-app.get('/create', (req, res) => {
-    res.render('create-blog')
-})
-app.post('/create', (req, res) => {
-    const title = req.body.title
-    const author = req.body.author
-    const description = req.body.description
-
-    if(title.trim() === '' && author.trim() === '' && description.trim() === ''){
-        res.render('create-blog', {error: true})
-    }else{
-        fs.readFile('./data/blogs.json', (err,data)=>{
-            if(err) throw err
-            
-            const blogs = JSON.parse(data)
-
-            blogs.push({
-                id: id(),
-                title:title,
-                author:author,
-                description:description
-            })
-
-            fs.writeFile('./data/blogs.json', JSON.stringify(blogs), err=>{
-                if(err) throw err
-
-                res.render('create-blog', {success:true})
-            })
-        })
-    }
-})
-
-
-app.get('/blogs', (req, res) => {
-    fs.readFile('./data/blogs.json', (err, data)=>{
-        if (err) throw err
-
-        const blogs = JSON.parse(data)
-        res.render('blogs', { blogs: blogs })
-
-    })
-
-})
-app.get('/blogs/:id', (req, res) => {
-    const id = req.params.id
-    fs.readFile('./data/blogs.json', (err, data)=>{
-        if (err) throw err
-
-        const blogs = JSON.parse(data)
-        const blog = blogs.filter(blog=>blog.id == id)[0]
-        res.render('detail', {blog:blog})
-    })
-})
-
-app.listen(5000, () => {
-    console.log('Server is runnig on port 5000');
-})
-
+// generate random id number
 function id(){
     return '_' + Math.random().toString(36).substr(2,9);
 }
+
+//server config
+const PORT = process.env.PORT || 5000
+
+const storageConfig = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        cb(null, path.join(__dirname, 'public/images'));
+    },
+    filename: (req, file, cb) =>{
+        cb(null, id() + '.jpg');
+    }
+});
+
+//set view engine.
+app.set('view engine', 'pug')
+
+// middlewares
+app.use(express.urlencoded({extended:false}))
+app.use('/blogs', blogs)
+app.use('/api/v1/blogs', api_listOfBlogs)
+app.use('/static', express.static('public'))
+app.use(multer({ storage:storageConfig }).single("photo"));
+
+// url handlers 
+app.get('/', (req, res) => {
+    res.render('homepage')
+})
+app.route('/create')
+    .get((req, res) => {
+    res.render('create-blog')
+    })
+    .post((req, res) => {
+        const title = req.body.title
+        const author = req.body.author
+        const description = req.body.description
+        const photo = req.file.filename
+
+        
+        if(title.trim() === ""){
+            res.render('create-blog', {error:"Please fill the title!"})
+        }else if(author.length < 5){
+                res.render('create-blog', {error:"Minimum character for author is 5"})
+        }else if(description.trim() === ""){
+            res.render('create-blog', {error:"Please fill the description!"})
+        }
+        else{
+            fs.readFile('./data/blogs.json', (err,data)=>{
+                if(err) res.sendStatus(500)
+                
+                const blogs = JSON.parse(data)
+
+                blogs.push({
+                    id: id(),
+                    title: title,
+                    author:author,
+                    description:description,
+                    photo: photo
+
+                }),
+
+                fs.writeFile('./data/blogs.json', JSON.stringify(blogs), err=>{
+                    if(err) res.sendStatus(500)
+
+                    res.render('create-blog', {success:true})
+                })
+            })
+        }
+    })
+
+app.use(function(req, res, next){
+    res.status(404).send("Not available page")
+})
+
+// run server
+app.listen(PORT, () => {
+    console.log(`Server is up and running on http://localhost:${PORT}`);
+})
