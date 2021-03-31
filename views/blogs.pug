@@ -2,8 +2,10 @@ extends layout.pug
 
 block content 
     .container 
-    h1 All Your Blogs 
-
-    each blog in blogs
-        div.blog-wrapper
-            a.blog(href=`/blogs/${blog.id}`) #{blog.title}
+        h1.heading_blog All Your Blogs 
+        each blog in blogs
+            div.blog-wrapper
+                h1.title  #{blog.title}
+                h5.author #{blog.author}
+                img(src=`/static/images/${ blog.photo }`)
+                a.blog(href=`/blogs/${blog.id}`) Read

@@ -5,12 +5,12 @@ block content
         h1 Create Your Blog 
 
         if error 
-            p.error Some error there 
+            p.error=error
 
         if success 
-            p.success Successfully saved
+            p.success Successfully blog saved
 
-        form.form(action="/create" method='POST') 
+        form.form(action="/create" method='POST' enctype='multipart/form-data') 
             label Title 
             input(type="text" name="title")
 
@@ -19,5 +19,8 @@ block content
 
             label Description 
             textarea.input(type="text", name="description")
+
+            label Photo
+            input(type='file' name='photo' required)
 
             button.btn Create Blog

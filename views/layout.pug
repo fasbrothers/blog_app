@@ -4,12 +4,16 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title The Blog app
+        link(rel='stylesheet' href='/static/style/style.css')
+        title The Blog
     body 
         header.navbar
             h1
-                a(href='/') The Blog app
+                a(href='/') The Blog
             nav.nav 
                 a(href='/blogs') All blogs
-                a(href='/create') Create Blog
-    block content
+                a(href='/create') Create blog
+        block content
+
+        footer.container
+            p.footer "This web application was created to fulfill Web Technology module's requirements does not represent an actual company or service" 
