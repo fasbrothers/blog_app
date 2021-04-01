@@ -85,7 +85,7 @@ app.route('/create')
     })
 
 app.use(function(req, res, next){
-    res.status(404).send("Not available page")
+    res.status(404).render("error")
 })
 
 // run server
