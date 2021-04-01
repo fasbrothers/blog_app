@@ -4,8 +4,11 @@ block content
     .container 
         h1.heading_blog All Your Blogs 
         each blog in blogs
-            div.blog-wrapper
-                h1.title  #{blog.title}
-                h5.author #{blog.author}
-                img(src=`/static/images/${ blog.photo }`)
-                a.blog(href=`/blogs/${blog.id}`) Read
+            .blogs
+                div.blog-wrapper
+                    .image
+                        img.blog_image(src=`/static/images/${ blog.photo }`)
+                    .text
+                        h3.title  #{blog.title}
+                        h5.author #{blog.author}
+                        a.blog_read(href=`/blogs/${blog.id}`) Read More

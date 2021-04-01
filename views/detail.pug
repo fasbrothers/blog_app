@@ -1,8 +1,11 @@
 extends layout.pug 
 
 block content 
-    .container 
-        h1.title #{blog.title}
-        p.author #{blog.author}
-        p.description #{blog.description}
-        img#photo(src=`/static/images/${ blog.photo }`)
+    .container
+        .content
+            .content_image
+                img#photo(src=`/static/images/${ blog.photo }`)
+            .content_text
+                h1.title #{blog.title}
+                p.author #{blog.author}
+        p.content_description #{blog.description}

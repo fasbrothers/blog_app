@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
     .container 
-        h1 Create Your Blog 
+        h1.heading_blog Create Your Blog 
 
         if error 
             p.error=error
@@ -12,15 +12,15 @@ block content
 
         form.form(action="/create" method='POST' enctype='multipart/form-data') 
             label Title 
-            input(type="text" name="title")
+            input.input(type="text" name="title")
 
             label Author 
             input.input(type="text", name="author")
 
             label Description 
-            textarea.input(type="text", name="description")
+            textarea.textarea(type="text" name="description" rows="8" cols="50")
 
             label Photo
-            input(type='file' name='photo' required)
+            input.photo(type='file' name='photo' required)
 
-            button.btn Create Blog
+            button.blog_read Create Blog
