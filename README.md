@@ -29,6 +29,7 @@ node app
 - pug.js
 - nodemon.js
 - multer.js
+- node-input-validator.js
 
 ### The Blog web application repository on github
 
