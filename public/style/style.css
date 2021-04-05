@@ -257,6 +257,26 @@ input[type="file" i] {
   text-align: center;
   margin-top: 70px;
 }
+.delete {
+  display: inline-block;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  margin-left: 15px;
+  font-weight: 800;
+  transition: 0.3s ease-in;
+  background-color: #ff2400;
+  color: white;
+  font-size: 20px;
+  border: 1px solid #ff2400;
+}
+.delete:hover {
+  color: #ff2400;
+  background: #f7f9f9;
+}
+.delete:focus {
+  outline: none;
+}
 @media (max-width: 767px) {
   .navbar {
     flex-direction: column;
@@ -335,6 +355,9 @@ input[type="file" i] {
   .form .photo {
     margin: 0 auto;
     font-size: 15px;
+  }
+  .delete {
+    margin: 0 auto;
   }
 }
 @media (min-width: 767px) and (max-width: 1050px) {
