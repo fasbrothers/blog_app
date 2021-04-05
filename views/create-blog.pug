@@ -5,20 +5,20 @@ block content
         h1.heading_blog Create Your Blog 
 
         if error 
-            p.error=error
+            p.error Please fill all fields!
 
         if success 
             p.success Successfully blog saved
 
         form.form(action="/create" method='POST' enctype='multipart/form-data') 
             label Title 
-            input.input(type="text" name="title")
+            input.input(type="text" name="title" placeholder="5-100 characters")
 
             label Author 
-            input.input(type="text", name="author")
+            input.input(type="text", name="author" placeholder="5-25 characters")
 
             label Description 
-            textarea.textarea(type="text" name="description" rows="8" cols="50")
+            textarea.textarea(type="text" name="description" rows="8" cols="50" placeholder="minimum 5 characters")
 
             label Photo
             input.photo(type='file' name='photo' required)
