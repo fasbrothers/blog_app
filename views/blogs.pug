@@ -5,9 +5,7 @@ block content
     .container 
         h1.heading_blog All Your Blogs 
 
-        if deleted 
-            p.error Blog is deleted
-
+        if blogs.length
         each blog in blogs
             .blogs
                 div.blog-wrapper
@@ -18,3 +16,6 @@ block content
                         h5.author #{blog.author}
                         a.blog_read(href=`/blogs/${blog.id}`) Read More
                         a.delete(href=`/blogs/${blog.id}/delete`) Delete
+
+        else
+            h5.error_message Blog does not exist

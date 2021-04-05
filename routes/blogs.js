@@ -8,7 +8,7 @@ const fs =require('fs')
 // url handlers 
 router.get('/', (req, res) => {
     fs.readFile('./data/blogs.json', (err, data)=>{
-        if (err) throw err
+        if(err) res.sendStatus(500)
 
         const blogs = JSON.parse(data)
         res.render('blogs', { blogs: blogs })
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = req.params.id
     fs.readFile('./data/blogs.json', (err, data)=>{
-        if (err) throw err
+        if(err) res.sendStatus(500)
 
         const blogs = JSON.parse(data)
         const blog = blogs.filter(blog=>blog.id == id)[0]
@@ -38,7 +38,7 @@ router.get('/:id/delete', (req, res) => {
         fs.writeFile('./data/blogs.json', JSON.stringify(filteredBlogs), err=>{
             if(err) res.sendStatus(500)
 
-            res.render('blogs', {blogs:filteredBlogs, deleted: true})
+            res.redirect('/blogs')
         })
     })
 })
