@@ -26,5 +26,22 @@ router.get('/:id', (req, res) => {
         res.render('detail', {blog:blog})
     })
 })
+router.get('/:id/delete', (req, res) => {
+    const id= req.params.id
+
+    fs.readFile('./data/blogs.json', (err, data)=>{
+        if(err) res.sendStatus(500)
+
+        const blogs = JSON.parse(data)
+        const filteredBlogs = blogs.filter(blog => blog.id != id)
+
+        fs.writeFile('./data/blogs.json', JSON.stringify(filteredBlogs), err=>{
+            if(err) res.sendStatus(500)
+
+            res.render('blogs', {blogs:filteredBlogs, deleted: true})
+        })
+    })
+})
+
 // export
 module.exports = router
