@@ -27,10 +27,13 @@ node app
 
 - express.js
 - pug.js
-- nodemon.js
 - multer.js
 - node-input-validator.js
 
 ### The Blog web application repository on github
 
 [Github repository link](https://github.com/fasbrothers/blog_app.git)
+
+### The Blog web application on Glitch
+
+[Glitch link](https://theblog.glitch.me/)
