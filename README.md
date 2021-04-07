@@ -7,7 +7,7 @@ In order to run the blog web application you should follow instructions, which w
 1. Clone this repository
 
 ```bash
-git clone https://github.com/fasbrothers/blog_app.git
+git clone https://github.com/fasbrothers/theBlog.git
 ```
 
 2. Install dependencies
@@ -32,7 +32,7 @@ node app
 
 ### The Blog web application repository on github
 
-[Github repository link](https://github.com/fasbrothers/blog_app.git)
+[Github repository link](https://github.com/fasbrothers/theBlog)
 
 ### The Blog web application on Glitch
 
