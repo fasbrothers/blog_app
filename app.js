@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 
-// local library
+// local libraries 
 const blogs = require('./routes/blogs')
 const api_listOfBlogs = require('./routes/api')
 const create = require('./routes/create')

@@ -169,6 +169,8 @@ nav a:hover {
   margin: 40px auto 0 0;
   line-height: 1.5;
   max-width: 1000px;
+  text-align: justify;
+  white-space: pre-wrap;
 }
 .footer {
   text-align: center;
